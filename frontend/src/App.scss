@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Finlandica&family=Poppins:wght@100;300;400&display=swap');
+
+/* SCSS RGB */
+$unbleached-silk: rgba(237, 208, 192, 1);
+$fuzzy-wuzzy: rgba(200, 98, 109, 1);
+$ash-gray: rgba(179, 192, 174, 1);
+$rosy-brown: rgba(188, 136, 128, 1);
+$tyrian-purple: rgba(97, 3, 69, 1);
+
+$primary: $tyrian-purple;
+$secondary: $ash-gray;
+$warning: $rosy-brown;
+$danger: $fuzzy-wuzzy;
+$light: $unbleached-silk;
+
+$font-family-sans-serif: 'Finlandica', sans-serif;
+$font-family-base: 'Finlandica', sans-serif;
+$font-family-code: 'Finlandica', sans-serif;
+
+
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
