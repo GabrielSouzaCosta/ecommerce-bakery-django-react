@@ -12,10 +12,31 @@ $secondary: $ash-gray;
 $warning: $rosy-brown;
 $danger: $fuzzy-wuzzy;
 $light: $unbleached-silk;
+$dark: #111010c2;
 
 $font-family-sans-serif: 'Finlandica', sans-serif;
 $font-family-base: 'Finlandica', sans-serif;
 $font-family-code: 'Finlandica', sans-serif;
+
+.login-page {
+    background-image: url('../public/images/background1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.register-page {
+    background-image: url('../public/images/background3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.blur-bg {
+    backdrop-filter: blur(3px);
+}
+
+.blur-bg-register {
+    backdrop-filter: blur(2px);
+}
 
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
