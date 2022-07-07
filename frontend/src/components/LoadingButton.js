@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Form';
-
-function simulateNetworkRequest() {
-    return new Promise((resolve) => setTimeout(resolve, 2000));
-}
+import { useNavigate} from 'react-router-dom';
 
 export default function LoadingButton(props) {
     const [isLoading, setLoading] = useState(false);
+    const navigate = useNavigate();
   
     useEffect(() => {
       if (isLoading) {
-        simulateNetworkRequest().then(() => {
+        props.handleAuthentication().then((res) => {
           setLoading(false);
+          sessionStorage.setItem('token', res.data.auth_token)
+          if (res.status === 200) {
+            navigate('/')
+          }
+        })
+        .catch((err) => {
+          setLoading(false);
+          props.handleMsgChange( Object.values(err.response.data)[0] )
         });
       }
     }, [isLoading]);
@@ -23,7 +29,7 @@ export default function LoadingButton(props) {
         className='btn btn-primary d-block w-50 m-auto my-2'
         disabled={isLoading}
         onClick={!isLoading ? handleClick : null}
-      >
+        >
         {isLoading ? 'Loading…' : props.type}
       </Button>
     );

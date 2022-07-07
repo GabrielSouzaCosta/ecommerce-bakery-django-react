@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from pickle import TRUE
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,9 +29,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',
-)
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000/api/v1/', 'http://localhost:3000/']
+
+CORS_ORIGIN_WHITELIST = [
+    'http://127.0.0.1:8000',
+]
 
 # Application definition
 
@@ -42,9 +45,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'djoser',
-    'api'
+    'api.apps.ApiConfig'
 ]
 
 MIDDLEWARE = [
@@ -85,7 +89,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
+        'NAME': os.environ.get('DB_NAME', 'bakery_ecommerce'),
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PWD'),
         'HOST': os.environ.get('DB_HOST'),
@@ -141,3 +145,25 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
+
+#djoser settings
+DJOSER = {
+    'LOGIN_FIELD': 'email', 
+    'PASSWORD_RESET_CONFIRM_URL': 'api/v1/#/password/reset/confirm/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'SERIALIZERS': {},
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.outlook.office365.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = "gabrielsscosta2010@hotmail.com"
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD', 'Sw778083')
+
+DEFAULT_FROM_EMAIL = 'gabrielsscosta2010@hotmail.com'
+
+AUTH_USER_MODEL = 'api.User'

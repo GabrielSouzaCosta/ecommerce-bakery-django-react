@@ -5,8 +5,12 @@ import Breads from './components/pages/Breads';
 import Sweets from './components/pages/Sweets';
 import Login from './components/pages/Login.js';
 import Register from './components/pages/Register';
+import Activation from './components/pages/Activation';
+import { useEffect } from 'react';
+
 
 function App() {
+  
   return (
     <>
     <Routes>
@@ -15,6 +19,7 @@ function App() {
       <Route path='/sweets' element={ <Sweets /> } />
       <Route path='/login' element={ <Login /> } />
       <Route path='/register' element={ <Register /> } />
+      <Route path='/activate/:uid/:token' element={ <Activation /> }/>
     </Routes>
     </>
   )

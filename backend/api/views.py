@@ -1,26 +1,18 @@
-from django.contrib.auth.models import User, Group
 from .models import Product
 from rest_framework import viewsets, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import UserSerializer, GroupSerializer, ProductSerializer
+from .serializers import ProductSerializer
 
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-    permission_classes = [permissions.IsAuthenticated]
+class UserActivationView(APIView):
+    def get (self, request, uid, token):
+        protocol = 'https://' if request.is_secure() else 'http://'
+        web_url = protocol + request.get_host()
+        post_url = web_url + "/auth/users/activate/"
+        post_data = {'uid': uid, 'token': token}
+        result = requests.post(post_url, data = post_data)
+        content = result.text()
+        return Response(content)
 
 class ProductsListView(APIView):
     def get(self, request, format=None):
