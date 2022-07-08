@@ -3,6 +3,6 @@ import Products from './Products';
 
 export default function Breads() {
   return (
-    <Products/>
+    <Products category={"breads"} styling={"wrapper-breads"}/>
   )
 }
