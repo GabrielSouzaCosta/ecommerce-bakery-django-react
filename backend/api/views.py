@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 from django.conf import settings
 from django.http import Http404
 from django.shortcuts import render
 
 from rest_framework import viewsets, permissions, authentication, status
+=======
+from unicodedata import category
+from .models import Product
+from rest_framework import viewsets, permissions
+>>>>>>> dc58e33ca5d942e651929c64ae3263c4f9e3e295
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.response import Response
@@ -46,6 +52,7 @@ class CoffeesListView(APIView):
         coffees = Product.objects.filter(category=3)
         serializer = ProductSerializer(coffees, many=True)
         return Response(serializer.data)
+<<<<<<< HEAD
 
 @api_view
 @authentication_classes([authentication.TokenAuthentication])
@@ -73,3 +80,5 @@ def checkout(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+=======
+>>>>>>> dc58e33ca5d942e651929c64ae3263c4f9e3e295
