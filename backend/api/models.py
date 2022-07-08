@@ -1,3 +1,4 @@
+import email
 from PIL import Image
 from io import BytesIO
 
@@ -42,7 +43,7 @@ class User(AbstractUser):
     email = models.EmailField(max_length=200, unique=True)
     name = models.CharField(max_length=100, blank=False)
     last_name = models.CharField(max_length=100, blank=False)
-    account_address = models.CharField(max_length=30, blank=False)
+    account_address = models.CharField(max_length=100, blank=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -101,7 +102,7 @@ class Product(models.Model):
             else:
                 return ''
     
-    def make_thumbnail(self, image, size=(300,200)):
+    def make_thumbnail(self, image, size=(400,300)):
         img = Image.open(image)
         img.convert('RGB')
         img.thumbnail(size)
@@ -112,3 +113,33 @@ class Product(models.Model):
         thumbnail = File(thumb_io, name=image.name)
 
         return thumbnail
+
+# Items paid
+class Order(models.Model):
+    user = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.CharField(max_length=200)
+    address = models.CharField(max_length=100)
+    zipcode = models.CharField(max_length=100)
+    place = models.CharField(max_length=100)
+    phone = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    paid_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    stripe_token = models.CharField(max_length=120)
+    
+    class Meta:
+        ordering = ['-created_at',]
+        
+    def __str__(self):
+        return self.first_name
+
+# Items added to cart but do not paid
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='items', on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+    quantity = models.IntegerField(default=1)
+
+    def __str__(self):
+        return self.id
