@@ -114,10 +114,7 @@ class Product(models.Model):
 
         return thumbnail
 
-<<<<<<< HEAD
-=======
-# Items paid
->>>>>>> dc58e33ca5d942e651929c64ae3263c4f9e3e295
+
 class Order(models.Model):
     user = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
@@ -137,10 +134,7 @@ class Order(models.Model):
     def __str__(self):
         return self.first_name
 
-<<<<<<< HEAD
-=======
-# Items added to cart but do not paid
->>>>>>> dc58e33ca5d942e651929c64ae3263c4f9e3e295
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='items', on_delete=models.CASCADE)
@@ -148,8 +142,5 @@ class OrderItem(models.Model):
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
-<<<<<<< HEAD
         return str(self.id)
-=======
-        return self.id
->>>>>>> dc58e33ca5d942e651929c64ae3263c4f9e3e295
+

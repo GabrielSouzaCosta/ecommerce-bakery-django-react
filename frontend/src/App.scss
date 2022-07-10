@@ -85,5 +85,10 @@ $btn-border-radius: "0";
     overflow: hidden;
  }
 
+.number {
+     border: none;
+     border-radius: 18px
+ }
+
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 

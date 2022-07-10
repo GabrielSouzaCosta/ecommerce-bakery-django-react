@@ -6,9 +6,11 @@ import Image from 'react-bootstrap/Image';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMugHot, faStore } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
 
 export default function NavBar () {
   const [token, setToken] = useState("");
+  const orders = useSelector((state) => state.cart.orders)
 
   function handleLogout(event) {
     sessionStorage.removeItem('token');
@@ -38,20 +40,19 @@ export default function NavBar () {
             </Link>
           </Nav>
 
+          <Nav className='align-items-center'>
+            <Link to="/my_products" className='pe-4 text-decoration-none text-center position-relative'>
+              <FontAwesomeIcon icon={faStore} style={{color: "rgba(200, 98, 109, 0.9)", height: "1.5rem"}}/>
+              <span className='card d-inline text-white rounded-circle px-1 position-absolute top-0 end-0 me-3' style={{backgroundColor: "transparent", border: "2px solid #ffffff", fontSize: "0.7rem"}} >{orders.length}</span>
+              <div className='text-danger text-uppercase fs-5'>Cart</div>
+            </Link>
           {
             (token) ?
-            <Nav className='align-items-center'>
-              <Link to="/my_products" className='pe-4 text-decoration-none text-center'>
-                <FontAwesomeIcon icon={faStore} style={{color: "rgba(200, 98, 109, 0.9)", height: "1.5rem"}}/>
-                <div className='text-danger text-uppercase fs-5'>Shop</div>
-              </Link>
               <a style={{cursor: 'pointer'}} className='link-secondary text-decoration-none text-uppercase fs-4 pe-2' onClick={handleLogout}>Logout</a>
-            </Nav>
             :
-            <Nav>
               <Link className='link-secondary text-decoration-none text-uppercase fs-4 pe-2' to="/login">Login</Link>
-            </Nav>
-          }
+            }
+          </Nav>
 
       </Container>
     </Navbar>
