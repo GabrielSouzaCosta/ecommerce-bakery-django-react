@@ -17,10 +17,6 @@ export default function Products(props) {
   const toBuy = useSelector((state) => state.cart.orders)
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log(toBuy);
-  }, [dispatch])
-
   function InputNumber(props) {
     const [quantity, setQuantity] = useState("0");
 

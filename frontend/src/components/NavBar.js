@@ -43,7 +43,14 @@ export default function NavBar () {
           <Nav className='align-items-center'>
             <Link to="/my_products" className='pe-4 text-decoration-none text-center position-relative'>
               <FontAwesomeIcon icon={faStore} style={{color: "rgba(200, 98, 109, 0.9)", height: "1.5rem"}}/>
-              <span className='card d-inline text-white rounded-circle px-1 position-absolute top-0 end-0 me-3' style={{backgroundColor: "transparent", border: "2px solid #ffffff", fontSize: "0.7rem"}} >{orders.length}</span>
+              <span className='card d-inline text-white rounded-circle px-1 position-absolute top-0 end-0 me-3' style={{backgroundColor: "transparent", border: "2px solid #ffffff", fontSize: "0.7rem"}} >
+                {(orders) ? <>
+                  {orders.length}
+                </>
+                :
+                "0"
+                }
+                </span>
               <div className='text-danger text-uppercase fs-5'>Cart</div>
             </Link>
           {

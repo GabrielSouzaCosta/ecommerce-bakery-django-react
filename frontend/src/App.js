@@ -8,6 +8,7 @@ import Login from './components/pages/Login.js';
 import Register from './components/pages/Register';
 import Activation from './components/pages/Activation';
 import MyProducts from './components/pages/MyProducts';
+import Checkout from './components/pages/Checkout';
 import { useEffect } from 'react';
 
 
@@ -24,6 +25,7 @@ function App() {
       <Route path='/register' element={ <Register /> } />
       <Route path='/activate/:uid/:token' element={ <Activation /> }/>
       <Route path='/my_products' element={ <MyProducts />} />
+      <Route path='/checkout' element={ <Checkout /> } />
     </Routes>
     </>
   )
