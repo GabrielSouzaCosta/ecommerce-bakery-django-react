@@ -1,18 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
 import NavBar from '../NavBar';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { incrementQuantity } from '../../redux/slices/cartSlice';
 import { Link } from 'react-router-dom';
+
 
 export default function MyProducts() {
     const orders = useSelector((state) => [state.cart.orders]);
-    let total = 0
-    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [total, setTotal] = useState(0);
+
+    function setQuantityChange(e, id, oldQuantity) {
+        let quantity = e.target.value - oldQuantity
+        dispatch(incrementQuantity({'id': id, 'quantity': quantity}))
+    }
+
+    function setTotalValue() {
+        var newTotal = 0
+        orders[0].forEach((order) => {
+            newTotal += order.price * order.quantity
+        })
+        setTotal(newTotal)
+    }
+
+    useEffect(() => {
+        setTotalValue();
+    }, [orders[0]])
 
   return (
     <div className='min-vh-100 bg-secondary'>
@@ -39,20 +56,19 @@ export default function MyProducts() {
                         <Row className='justify-content-center w-100 mx-auto'>
                             {(orders.length !== 0) ?
                             orders[0].map((order) => {
-                                total += order.price * order.quantity
                                 return (
                                     <>
                                         <Col sm={4} md={4} lg={4}  className="column column-data">
-                                            {order.product}
+                                            {order.name}
                                         </Col>
                                         <Col sm={2} md={2} lg={2} className="column column-data">
                                             ${order.price}
                                         </Col>
                                         <Col sm={3} md={3} lg={2} className="column column-data">
-                                            <input type="number" className="border-0 w-100" style={{backgroundColor: 'transparent'}} value={order.quantity}></input>
+                                            <input type="number" min="1" max="50" className="border-0 w-100" style={{backgroundColor: 'transparent'}} value={order.quantity} onChange={(e) => setQuantityChange(e, order.product, order.quantity)}></input>
                                         </Col>
                                         <Col sm={2} md={2} lg={2} className="column column-data">
-                                            ${order.price * order.quantity}
+                                            ${(order.price * order.quantity).toFixed(2)}
                                         </Col>
                                     </>
                                 )

@@ -23,18 +23,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY','asdkljaskldjpo2dsad')
-STRIPE_SECRET_KEY = 'pk_test_51LJLNUGxJkyAp9vF7BGyoTHsXo1bnc5aThhQXD6dFQ2g9meSjBmM4CSa1RoWRfoxf0ZqrTkprlyPqp7orVlC51Hc005V13khXB'
+STRIPE_SECRET_KEY = 'sk_test_51LJLNUGxJkyAp9vFuT3j0TXXUmzYTLM13mdnlr1DIFQUcNGEloHOsLLf50bQGnMrmiAl0K5uEtFDN6XaDBhaBxbx00vYw9T8cL'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000/api/v1/', 'http://localhost:3000/']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000/api/v1/', 'http://localhost:3000/', 'http://localhost:3000']
 
 CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1:8000',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -144,7 +146,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
 }
 
 #djoser settings

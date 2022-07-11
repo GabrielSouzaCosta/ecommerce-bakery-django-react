@@ -126,7 +126,7 @@ class Order(models.Model):
     phone = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     paid_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    stripe_token = models.CharField(max_length=120)
+    payment_method_id = models.TextField()
     
     class Meta:
         ordering = ['-created_at',]

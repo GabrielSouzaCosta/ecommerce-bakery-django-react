@@ -7,14 +7,13 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/esm/Container';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/slices/cartSlice';
 
 
 export default function Products(props) {
   const [products, setProducts] = useState([]);
 
-  const toBuy = useSelector((state) => state.cart.orders)
   const dispatch = useDispatch();
 
   function InputNumber(props) {
@@ -24,7 +23,11 @@ export default function Products(props) {
       <Col md={6} lg={4} className="m-auto mb-2">
         <div className='d-flex align-items-center'>
             <input type="number" value={quantity} onChange={event => setQuantity(event.target.value)} className="number ps-3 py-1 text-center" min="1" max="50" step="1" />
-            <button className='btn btn-danger text-white ms-2 px-3 py-0' onClick={() => dispatch(addToCart({'product': props.name, 'price': props.price, 'quantity': quantity})) }>
+            <button className='btn btn-danger text-white ms-2 px-3 py-0' onClick={(e) => {
+              setQuantity(0);
+              dispatch(addToCart( {'id': props.id, 'name': props.name, 'price': props.price, 'quantity': quantity} ));
+              }
+              }>
               <FontAwesomeIcon icon={faCartShopping} className="pt-2" />
               Buy
             </button>
@@ -47,8 +50,7 @@ export default function Products(props) {
       .then(res => setProducts(res.data))
     }
     getProducts();
-    
-  }, [])
+  }, [props.category])
 
   return (
   <>
@@ -69,8 +71,8 @@ export default function Products(props) {
                           {truncateString(product.description)}
                         </p>
                         <div className="grey-border"></div>
-                        <InputNumber name={product.name} price={product.price} />
-                        <a href="#" className="text-center text-uppercase btn btn-danger w-100 bottom-0">Read More</a>
+                        <InputNumber id={product.id} name={product.name} price={product.price} />
+                        <button className="text-center text-uppercase btn btn-danger w-100 bottom-0">Read More</button>
                         <span className="position-absolute top-0 end-0 px-2 text-center fs-3 text-light" style={{backgroundColor: "#000000cc"}}>${product.price}</span>
                       </div>
                     </Col>

@@ -9,8 +9,13 @@ import Register from './components/pages/Register';
 import Activation from './components/pages/Activation';
 import MyProducts from './components/pages/MyProducts';
 import Checkout from './components/pages/Checkout';
-import { useEffect } from 'react';
+import PurchaseSuccessful from './components/pages/PurchaseSuccessful';
+import {Elements} from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
+const stripePromise = loadStripe('pk_test_51LJLNUGxJkyAp9vF7BGyoTHsXo1bnc5aThhQXD6dFQ2g9meSjBmM4CSa1RoWRfoxf0ZqrTkprlyPqp7orVlC51Hc005V13khXB', {
+  locale: 'en'}
+  )
 
 function App() {
   
@@ -25,7 +30,13 @@ function App() {
       <Route path='/register' element={ <Register /> } />
       <Route path='/activate/:uid/:token' element={ <Activation /> }/>
       <Route path='/my_products' element={ <MyProducts />} />
-      <Route path='/checkout' element={ <Checkout /> } />
+      <Route path='/checkout' 
+      element={
+        <Elements stripe={stripePromise} >
+          <Checkout /> 
+        </Elements>
+         } />
+      <Route path="/purchase_successful" element={ <PurchaseSuccessful /> } />
     </Routes>
     </>
   )

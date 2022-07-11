@@ -55,7 +55,7 @@ export default function NavBar () {
             </Link>
           {
             (token) ?
-              <a style={{cursor: 'pointer'}} className='link-secondary text-decoration-none text-uppercase fs-4 pe-2' onClick={handleLogout}>Logout</a>
+              <span style={{cursor: 'pointer'}} className='link-secondary text-decoration-none text-uppercase fs-4 pe-2' onClick={handleLogout}>Logout</span>
             :
               <Link className='link-secondary text-decoration-none text-uppercase fs-4 pe-2' to="/login">Login</Link>
             }

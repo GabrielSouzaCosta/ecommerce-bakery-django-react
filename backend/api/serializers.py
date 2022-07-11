@@ -45,7 +45,6 @@ class MyOrderSerializer(serializers.ModelSerializer):
             "zipcode",
             "place",
             "phone",
-            "stripe_token",
             "items",
             "paid_amount",
         )
@@ -73,7 +72,6 @@ class OrderSerializer(serializers.ModelSerializer):
             "zipcode",
             "place",
             "phone",
-            "stripe_token",
             "items",
         )
 
@@ -91,8 +89,8 @@ class OrderSerializer(serializers.ModelSerializer):
             "zipcode",
             "place",
             "phone",
-            "stripe_token",
             "items",
+            "payment_method_id",
         )
 
     def create(self, validated_data):

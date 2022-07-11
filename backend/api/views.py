@@ -48,30 +48,41 @@ class CoffeesListView(APIView):
         return Response(serializer.data)
 
 
-@api_view
+@api_view(['POST'])
 @authentication_classes([authentication.TokenAuthentication])
 @permission_classes([permissions.IsAuthenticated])
 def checkout(request):
     serializer = OrderSerializer(data=request.data)
+    print(request.user)
 
     if serializer.is_valid():
         stripe.api_key = settings.STRIPE_SECRET_KEY
         paid_amount = sum(item.get('quantity') * item.get('product').price for item in serializer.validated_data['items'])
 
-        try:
-            charge = stripe.Charge.create(
-                amount=int(paid_amount * 100),
-                currency='BRL',
-                description="Charge from Bakey Heaven",
-                source=serializer.validated_data['stripe_token']
-            )
+        payment_method_id = serializer.validated_data['payment_method_id']
+        customer_data = stripe.Customer.list(email=serializer.validated_data['email']).data 
+        
 
-            serializer.save(user=request.user, paid_amount=paid_amount)
+        if len(customer_data) == 0:
+            customer = stripe.Customer.create(
+                email=serializer.validated_data['email'], 
+                payment_method=payment_method_id
+                )
+        else:
+            customer = customer_data[0]
+            extra_msg = "Customer already existed."
 
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        stripe.PaymentIntent.create(
+            customer=customer, 
+            payment_method=payment_method_id,  
+            currency='BRL',
+            amount=int(paid_amount * 100),
+            confirm=True)  
 
-        except Exception:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.save(user=request.user, paid_amount=paid_amount)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -85,3 +96,11 @@ class OrdersList(APIView):
         return Response(serializer.data)
 
 
+@api_view(['POST'])
+def test_payment(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    test_payment_intent = stripe.PaymentIntent.create(
+    amount=1000, currency='pln', 
+    payment_method_types=['card'],
+    receipt_email='test@example.com')
+    return Response(status=status.HTTP_200_OK, data=test_payment_intent)

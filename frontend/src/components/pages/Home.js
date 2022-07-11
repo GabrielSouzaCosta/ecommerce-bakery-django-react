@@ -1,6 +1,5 @@
 import React from 'react'
 import NavBar from '../NavBar'
-import Container from 'react-bootstrap/esm/Container'
 
 export default function Home() {
   return (
