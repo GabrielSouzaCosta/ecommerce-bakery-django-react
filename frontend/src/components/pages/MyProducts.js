@@ -13,7 +13,6 @@ import { faMinus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 export default function MyProducts() {
     const orders = useSelector((state) => [state.cart.orders]);
-    const [deleteIsLoading, setDeleteIsLoading] = useState(false);
     const dispatch = useDispatch();
     const [total, setTotal] = useState(0);
 

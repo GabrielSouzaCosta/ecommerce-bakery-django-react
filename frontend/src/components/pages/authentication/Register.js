@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/esm/Container';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Form';
-import LoadingButton from '../LoadingButton';
-import getCookie from '../CSRFToken';
+import LoadingButton from '../../LoadingButton';
+import getCookie from '../../CSRFToken';
 import axios from 'axios';
 
 export default function Register() {
@@ -14,11 +14,12 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
   const [msg, setMsg] = useState("");
+  const navigate = useNavigate();
 
   const csrftoken = getCookie('csrftoken');
 
-  function handleRegister() {
-    return axios.post('users/', {"email": email, "password": password, "re_password": rePassword}, {headers: {
+  async function handleRegister() {
+    return await axios.post('accounts/register/', {"email": email, "password": password, "password_confirm": rePassword}, {headers: {
       "x-csrftoken": csrftoken
     }})
   }    

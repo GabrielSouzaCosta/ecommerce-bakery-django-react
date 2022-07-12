@@ -5,8 +5,8 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Form';
-import LoadingButton from '../LoadingButton';
-import getCookie from '../CSRFToken';
+import LoadingButton from '../../LoadingButton';
+import getCookie from '../../CSRFToken';
 import axios from 'axios';
 
 export default function Login() {
@@ -18,7 +18,7 @@ export default function Login() {
 
 
   function handleLogin() {
-    return axios.post('token/login', {"email": email, "password": password}, {headers: {
+    return axios.post('accounts/login/', {"login": email, "password": password}, {headers: {
       "x-csrftoken": csrftoken
     }})
   }    
@@ -61,7 +61,7 @@ export default function Login() {
                   </Button>
                 </Link>
 
-                <Link to="/login" className='position-absolute link-danger fw-bold bottom-0 start-0 end-0 pb-3'>Forgot your password?</Link>
+                <Link to="/forgot-password" className='position-absolute link-danger fw-bold bottom-0 start-0 end-0 pb-3'>Forgot your password?</Link>
 
                 
               </Card.Body>

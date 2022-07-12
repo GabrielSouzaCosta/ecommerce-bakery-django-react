@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'djoser',
+    'rest_registration',
     'api.apps.ApiConfig'
 ]
 
@@ -147,19 +147,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]
 }
 
-#djoser settings
-DJOSER = {
-    'LOGIN_FIELD': 'email', 
-    'PASSWORD_RESET_CONFIRM_URL': 'api/v1/#/password/reset/confirm/{uid}/{token}',
-    'SEND_ACTIVATION_EMAIL': True,
-    'ACTIVATION_URL': 'activate/{uid}/{token}',
-    'USER_CREATE_PASSWORD_RETYPE': True,
-    'SERIALIZERS': {},
+SITE_NAME = "Heaven Bakery"
+
+REST_REGISTRATION = {
+    'REGISTER_VERIFICATION_ENABLED': True,
+    'REGISTER_EMAIL_VERIFICATION_ENABLED': True,
+    'RESET_PASSWORD_VERIFICATION_ENABLED': True,
+    'REGISTER_VERIFICATION_URL': 'http://localhost:3000/verify-user/',
+    'RESET_PASSWORD_VERIFICATION_URL': 'http://localhost:3000/reset-password/',
+    'REGISTER_EMAIL_VERIFICATION_URL': 'http://localhost:3000/verify-email/',
+    'VERIFICATION_FROM_EMAIL': 'gabrielsscosta2010@hotmail.com',
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

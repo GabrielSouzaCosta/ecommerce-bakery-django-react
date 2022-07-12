@@ -10,10 +10,7 @@ export default function LoadingButton(props) {
       if (isLoading) {
         props.handleAuthentication().then((res) => {
           setLoading(false);
-          sessionStorage.setItem('token', res.data.auth_token)
-          if (res.status === 200) {
-            navigate('/')
-          }
+          navigate('/register-success')
         })
         .catch((err) => {
           setLoading(false);

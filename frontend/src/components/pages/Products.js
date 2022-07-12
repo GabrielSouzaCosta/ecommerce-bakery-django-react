@@ -17,14 +17,14 @@ export default function Products(props) {
   const dispatch = useDispatch();
 
   function InputNumber(props) {
-    const [quantity, setQuantity] = useState("0");
+    const [quantity, setQuantity] = useState("1");
 
     return (
-      <Col md={6} lg={4} className="m-auto mb-2">
-        <div className='d-flex align-items-center'>
+      <Col lg={4} className="m-auto mb-2">
+        <div className='d-flex align-items-center justify-content-center'>
             <input type="number" value={quantity} onChange={event => setQuantity(event.target.value)} className="number ps-3 py-1 text-center" min="1" max="50" step="1" />
             <button className='btn btn-danger text-white ms-2 px-3 py-0' onClick={(e) => {
-              setQuantity(0);
+              setQuantity(1);
               dispatch(addToCart( {'id': props.id, 'name': props.name, 'price': props.price, 'quantity': quantity} ));
               }
               }>
