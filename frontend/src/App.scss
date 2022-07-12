@@ -20,6 +20,10 @@ $font-family-code: 'Finlandica', sans-serif;
 
 $btn-border-radius: "0";
 
+.disabled {
+    pointer-events: none;
+}
+
 .login-page {
     background-image: url('../public/images/background1.jpg');
     background-repeat: no-repeat;

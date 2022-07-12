@@ -5,12 +5,15 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import { useDispatch, useSelector } from 'react-redux';
-import { incrementQuantity } from '../../redux/slices/cartSlice';
+import { incrementQuantity, removeProduct, clearCart } from '../../redux/slices/cartSlice';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMinus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function MyProducts() {
     const orders = useSelector((state) => [state.cart.orders]);
+    const [deleteIsLoading, setDeleteIsLoading] = useState(false);
     const dispatch = useDispatch();
     const [total, setTotal] = useState(0);
 
@@ -25,6 +28,10 @@ export default function MyProducts() {
             newTotal += order.price * order.quantity
         })
         setTotal(newTotal)
+    }
+
+    function handleClearCart () {
+        dispatch(clearCart());
     }
 
     useEffect(() => {
@@ -51,6 +58,14 @@ export default function MyProducts() {
                             <Col lg={2} sm={2} className="column">
                                 <h2>Total</h2>
                             </Col>
+                            <Col lg={1} className="justify-content-center align-items-center p-0 ps-1">
+                                <button className="btn btn-danger text-white text-uppercase p-1 mt-1" onClick={handleClearCart}>
+                                   <span className='me-1'>
+                                    <FontAwesomeIcon icon={faTrashCan} />
+                                    </span>
+                                    Cancel all
+                                </button>
+                            </Col>
                         </Row>
 
                         <Row className='justify-content-center w-100 mx-auto'>
@@ -70,6 +85,11 @@ export default function MyProducts() {
                                         <Col sm={2} md={2} lg={2} className="column column-data">
                                             ${(order.price * order.quantity).toFixed(2)}
                                         </Col>
+                                        <Col lg={1} className="justify-content-center p-0 ps-1" onClick={(e) => dispatch(removeProduct(order.product))}>
+                                            <FontAwesomeIcon icon={faMinus} className="btn btn-danger rounded-circle p-1 d-inline-block" style={{marginTop: "2%"}} />
+                                        </Col>
+
+                                        
                                     </>
                                 )
                             })
@@ -78,9 +98,9 @@ export default function MyProducts() {
                             }
                             <Col lg={11} className="pt-3 text-center">
                                 <h2>Total: ${total.toFixed(2)} </h2>
-                            </Col>  
+                            </Col>      
                             <Col sm={10} md={6} lg={4} xxl={3}>
-                                <Link to='/checkout' className='btn btn-danger rounded-pill text-white w-100 mt-5'>
+                                <Link to='/checkout' className={`btn btn-danger rounded-pill text-white w-100 mt-3 ${(orders[0].length ===0) ? "disabled" : ""}`}>
                                     proceed to checkout
                                 </Link>
                             </Col> 
