@@ -80,7 +80,12 @@ export default function NavBar (props) {
             </Link>
           {
             (token) ?
+            <>
+              <Link to="/my_account" className='text-white text-decoration-none text-uppercase fs-4 pe-2'>
+                Profile
+              </Link>
               <span style={{cursor: 'pointer'}} className='link-secondary text-decoration-none text-uppercase fs-4 pe-2' onClick={handleLogout}>Logout</span>
+            </>
             :
               <Link className='link-secondary text-decoration-none text-uppercase fs-4 pe-2' to="/login">Login</Link>
             }

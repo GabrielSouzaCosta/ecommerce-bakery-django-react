@@ -27,7 +27,7 @@ class MyOrderItemSerializer(serializers.ModelSerializer):
             )
 
 class MyOrderSerializer(serializers.ModelSerializer):
-    products = MyOrderItemSerializer(many=True)
+    items = MyOrderItemSerializer(many=True)
 
     class Meta:
         model = Order
@@ -42,6 +42,7 @@ class MyOrderSerializer(serializers.ModelSerializer):
             "phone",
             "items",
             "paid_amount",
+            "created_at"
         )
 
 class OrderItemSerializer(serializers.ModelSerializer):

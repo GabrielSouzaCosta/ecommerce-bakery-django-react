@@ -2,6 +2,7 @@ import './App.scss';
 import { Routes, Route} from "react-router-dom";
 import Home from './components/pages/Home';
 import Breads from './components/pages/Breads';
+import MyAccount from './components/pages/authentication/MyAccount';
 import Sweets from './components/pages/Sweets';
 import Coffees from './components/pages/Coffees';
 import Login from './components/pages/authentication/Login.js';
@@ -31,6 +32,7 @@ function App() {
       <Route path='/coffees' element={ <Coffees /> } />
       <Route path='/login' element={ <Login /> } />
       <Route path='/register' element={ <Register /> } />
+      <Route path="/my_account" element={ <MyAccount />} />
       <Route path='/register-success' element={ <RegisterSuccess /> } />
       <Route path='/verify-user' element={ <Activation /> }/>
       <Route path='/forgot-password' element={ <ForgotPassword /> }/>
