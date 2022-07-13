@@ -75,7 +75,7 @@ export default function Products(props) {
 
   useEffect(() => {
     const getProducts = async () => {
-      await axios.get(props.category+'?format=json')
+      await axios.get(process.env.REACT_APP_BACKEND_URL+props.category+'?format=json')
       .then(res => setProducts(res.data))
     }
     getProducts();
@@ -114,8 +114,8 @@ export default function Products(props) {
         }
        </Container>
        <BuyProductToast showToast={showToast} handleClose={handleCloseToast}  />   
-       <Footer style={"dark text-white"} githubIcon={"github_white"}/>
     </div>
+    <Footer style={"dark text-white"} githubIcon={"github_white"}/>
   </>
   )
 }

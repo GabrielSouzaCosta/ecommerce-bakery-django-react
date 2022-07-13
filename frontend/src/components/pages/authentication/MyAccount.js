@@ -6,7 +6,7 @@ export default function MyAccount() {
   const [orders, setOrders] = useState([])
 
   useEffect(() => {
-    axios.get('orders/', {headers: {
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/orders/`, {headers: {
       "Authorization": "Token "+sessionStorage.getItem('token')
     }})
     .then(res => setOrders(res.data.map((order) => {
@@ -16,7 +16,7 @@ export default function MyAccount() {
   }, [])
 
   return (
-    <div className='bg-warning'>
+    <div className='bg-warning min-vh-100'>
         <NavBar style={{opacity: "0.92"}}/>
         <div className='container pb-4'>
           <h1 className='text-center text-uppercase pt-3 pb-2 text-white  '>My Orders</h1>

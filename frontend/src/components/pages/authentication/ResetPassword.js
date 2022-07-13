@@ -15,7 +15,7 @@ export default function ResetPassword() {
     function handlePwdChange(e) {
         e.preventDefault();
 
-        axios.post('/accounts/reset-password/', 
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/accounts/reset-password/`, 
         {
             "password": password,
             "user_id": searchParams.get('user_id'),

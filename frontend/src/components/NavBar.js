@@ -15,7 +15,7 @@ export default function NavBar (props) {
   const orders = useSelector((state) => state.cart.orders)
 
   function handleLogout(event) {
-    axios.post('/accounts/logout/', {}, {headers: {
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/accounts/logout/`, {}, {headers: {
       "x-csrftoken": getCookie("csrftoken")
     }})
     sessionStorage.removeItem('token');

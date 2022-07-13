@@ -175,6 +175,7 @@ export default function Checkout(props) {
                       <input id='phone' className='form-control ms-2' value={phone} onChange={(e) => setPhone(e.target.value)} required/>
                     </div>
                     <hr className='my-3 mx-auto' style={{width: "97%"}}></hr>
+                    <h2>Payment Information</h2>
                     <PaymentOptions paymentMethodOption={paymentMethodOption} handleOptionChange={handleOptionChange} />
                     {(paymentMethodOption == "card") ?
                       <>

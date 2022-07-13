@@ -19,7 +19,7 @@ export default function Register() {
   const csrftoken = getCookie('csrftoken');
 
   async function handleRegister() {
-    return await axios.post('accounts/register/', {"email": email, "password": password, "password_confirm": rePassword}, {headers: {
+    return await axios.post(`${process.env.REACT_APP_BACKEND_URL}/accounts/register/`, {"email": email, "password": password, "password_confirm": rePassword}, {headers: {
       "x-csrftoken": csrftoken
     }})
   }    

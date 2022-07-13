@@ -17,7 +17,7 @@ export default function Login() {
   
   async function handleLogin() {
     const csrftoken = getCookie('csrftoken');
-    return await axios.post('accounts/login/', {"login": email, "password": password}, {headers: {
+    return await axios.post(`${process.env.REACT_APP_BACKEND_URL}/accounts/login/`, {"login": email, "password": password}, {headers: {
       "x-csrftoken": csrftoken
     }})
   }    
@@ -37,14 +37,11 @@ export default function Login() {
   return (
     <div className='vh-100 login-page'>
       <div className='h-100 blur-bg position-relative'>
-      <Link to="/">
-        <img src='logo.png' className='position-absolute mt-4 end-0 start-0 mx-auto' height="100px" style={{filter: "brightness(110%)"}}/>
-      </Link>
         <Container fluid="sm" className='h-100'>
           <Col md={6} lg={4} className="mx-auto h-100" >
             <div className='d-flex align-items-center h-100'>
             
-              <Card className='w-100 text-center py-5 mt-5 mt-md-0 border-0 bg-light' style={{borderRadius: "4% 0 4% 0", filter: "drop-shadow(0px 16px 50px #000)", opacity: "0.95"}}>
+              <Card className='w-100 text-center py-5 border-0 bg-light' style={{borderRadius: "4% 0 4% 0", filter: "drop-shadow(0px 16px 50px #000)", opacity: "0.95"}}>
                 <Card.Body>
                   <Card.Title className='display-5'>Login</Card.Title>
                   

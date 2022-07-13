@@ -16,6 +16,7 @@ from pickle import TRUE
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+BACKEND_URL = "https://bakery-ecommerce-drf-backend.herokuapp.com"
 
 
 # Quick-start development settings - unsuitable for production
@@ -23,14 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY','asdkljaskldjpo2dsad')
-STRIPE_SECRET_KEY = 'sk_test_51LJLNUGxJkyAp9vFuT3j0TXXUmzYTLM13mdnlr1DIFQUcNGEloHOsLLf50bQGnMrmiAl0K5uEtFDN6XaDBhaBxbx00vYw9T8cL'
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', 'sk_test_51LJLNUGxJkyAp9vFuT3j0TXXUmzYTLM13mdnlr1DIFQUcNGEloHOsLLf50bQGnMrmiAl0K5uEtFDN6XaDBhaBxbx00vYw9T8cL')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', True)
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000/api/v1/', 'http://localhost:3000/', 'http://localhost:3000']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000/api/v1/', 'http://localhost:3000/', os.environ.get('FRONTEND_URL', 'http://localhost:3000')]
 
 CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1:8000',
@@ -100,6 +101,10 @@ DATABASES = {
     }
 }
 
+import dj_database_url
+
+# DATABASES['default'] = dj_database_url.config()
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -134,6 +139,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
@@ -160,9 +166,9 @@ REST_REGISTRATION = {
     'REGISTER_VERIFICATION_ENABLED': True,
     'REGISTER_EMAIL_VERIFICATION_ENABLED': True,
     'RESET_PASSWORD_VERIFICATION_ENABLED': True,
-    'REGISTER_VERIFICATION_URL': 'http://localhost:3000/verify-user/',
-    'RESET_PASSWORD_VERIFICATION_URL': 'http://localhost:3000/reset-password/',
-    'REGISTER_EMAIL_VERIFICATION_URL': 'http://localhost:3000/verify-email/',
+    'REGISTER_VERIFICATION_URL': os.environ.get('FRONTEND_URL', 'http://localhost:3000/')+'verify-user/',
+    'RESET_PASSWORD_VERIFICATION_URL': os.environ.get('FRONTEND_URL','http://localhost:3000/')+'reset-password/',
+    'REGISTER_EMAIL_VERIFICATION_URL': os.environ.get('FRONTEND_URL','http://localhost:3000/')+'verify-email/',
     'VERIFICATION_FROM_EMAIL': 'gabrielsscosta2010@hotmail.com',
     'LOGIN_RETRIEVE_TOKEN': True,
 }
@@ -173,7 +179,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = "gabrielsscosta2010@hotmail.com"
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD', 'Sw778083')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
 DEFAULT_FROM_EMAIL = 'gabrielsscosta2010@hotmail.com'
 

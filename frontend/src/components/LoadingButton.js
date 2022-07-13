@@ -14,7 +14,7 @@ export default function LoadingButton(props) {
             navigate('/register-success');
           } else {
             console.log(res.data)
-            navigate(-1);
+            navigate("/");
             sessionStorage.setItem('token', res.data.token);
           }
         })

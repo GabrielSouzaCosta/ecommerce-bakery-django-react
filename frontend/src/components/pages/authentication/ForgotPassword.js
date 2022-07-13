@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import NavBar from '../../NavBar'
+import NavBar from '../../NavBar';
+import getCookie from '../../CSRFToken';
 
 function SendEmailForm(props) {
   const [email, setEmail] = useState("");
@@ -33,10 +34,15 @@ export default function ForgotPassword() {
   const [emailSent, setEmailSent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState("");
+  const csrftoken = getCookie('csrftoken');
 
   function handleSubmit(email) {
     setIsLoading(true)
-    axios.post('accounts/send-reset-password-link/', {login: email})
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/accounts/send-reset-password-link/`, {login: email}, {
+      headers: {
+        "x-csrftoken": csrftoken
+      }
+    })
     .then(res => {
       setErrors("");
       setEmailSent(true);
