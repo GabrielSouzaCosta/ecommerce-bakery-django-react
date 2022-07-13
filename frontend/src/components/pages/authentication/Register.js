@@ -59,7 +59,7 @@ export default function Register() {
                 <Form.Text id="passwordHelpBlock" className='text-white'>Your password must be at least 8 characters long</Form.Text>
                 <p className='text-danger fw-bold'>{msg}</p>
 
-                <LoadingButton type={"Register Account"} handleAuthentication={handleRegister} handleMsgChange={handleMsgChange} />
+                <LoadingButton type={"Register Account"} handleAuthentication={handleRegister} handleMsgChange={handleMsgChange} register={true} />
                 <p className='mb-2'>or</p>
                 <Link to="/login" className='d-block'>
                   <Button className="btn btn-secondary w-50">

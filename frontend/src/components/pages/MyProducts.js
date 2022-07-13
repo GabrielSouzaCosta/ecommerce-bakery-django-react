@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import NavBar from '../NavBar';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import { useDispatch, useSelector } from 'react-redux';
 import { incrementQuantity, removeProduct, clearCart } from '../../redux/slices/cartSlice';
@@ -41,71 +40,67 @@ export default function MyProducts() {
     <div className='min-vh-100 bg-secondary'>
         <NavBar />
         <Container fluid>
-            <Row className="align-items-center text-uppercase" style={{height: "85vh"}}>
-                <Col lg={10} md={11} sm={12} className="mx-auto" >
-                    <Card className="bg-light py-3 w-100" style={{minHeight: "400px"}}>
-                        <Row className='justify-content-center w-100 mx-auto'>
-                            <Col lg={4} sm={4} className="column">
-                                <h2>Product</h2>
-                            </Col>
-                            <Col lg={2} sm={2} className="column">
-                                <h2>Price</h2>
-                            </Col>
-                            <Col  lg={2} md={3}  sm={3} className="column">
-                                <h2>Quantity</h2>
-                            </Col>
-                            <Col lg={2} sm={2} className="column">
-                                <h2>Total</h2>
-                            </Col>
-                            <Col lg={1} className="justify-content-center align-items-center p-0 ps-1">
-                                <button className="btn btn-danger text-white text-uppercase p-1 mt-1" onClick={handleClearCart}>
-                                   <span className='me-1'>
-                                    <FontAwesomeIcon icon={faTrashCan} />
-                                    </span>
-                                    Cancel all
-                                </button>
-                            </Col>
-                        </Row>
+            <Row className="align-items-center justify-content-center text-uppercase" style={{height: "85vh"}}>
+                <Card className="bg-light py-3 w-100" style={{minHeight: "400px"}}>
+                    <Row className='justify-content-center w-100 mx-auto align-items-end'>
+                        <div className="column col-4 col-lg-3 px-0 text-center">
+                            <h2 className='fs-4'>Product</h2>
+                        </div>
+                        <div className="column col-2 text-center px-0">
+                            <h2 className='d-none d-md-block fs-4'>Price</h2>
+                            <h2 className='d-block d-md-none fs-4'>$</h2>
+                        </div>
+                        <div className="column col-2 col-lg-1 text-center px-0">
+                            <h2 className='d-none d-md-block fs-4'>Quantity</h2>
+                            <h2 className='d-block d-md-none fs-4'>Qt</h2>
+                        </div>
+                        <div className="column col-3 col-lg-2 text-center px-0">
+                            <h2 className='d-none d-md-block fs-4'>Total</h2>
+                            <h2 className='d-block d-md-none fs-4'>Total</h2>
+                        </div>
+                        <div className="justify-content-center align-items-center p-0 ps-1 mb-1 col-1">
+                            <button className="btn btn-danger text-white text-uppercase p-0" onClick={handleClearCart}>
+                                <FontAwesomeIcon icon={faTrashCan} className='px-1' />
+                            </button>
+                        </div>
+                    </Row>
 
-                        <Row className='justify-content-center w-100 mx-auto'>
-                            {(orders.length !== 0) ?
-                            orders[0].map((order) => {
-                                return (
-                                    <>
-                                        <Col sm={4} md={4} lg={4}  className="column column-data">
-                                            {order.name}
-                                        </Col>
-                                        <Col sm={2} md={2} lg={2} className="column column-data">
-                                            ${order.price}
-                                        </Col>
-                                        <Col sm={3} md={3} lg={2} className="column column-data">
-                                            <input type="number" min="1" max="50" className="border-0 w-100" style={{backgroundColor: 'transparent'}} value={order.quantity} onChange={(e) => setQuantityChange(e, order.product, order.quantity)}></input>
-                                        </Col>
-                                        <Col sm={2} md={2} lg={2} className="column column-data">
-                                            ${(order.price * order.quantity).toFixed(2)}
-                                        </Col>
-                                        <Col lg={1} className="justify-content-center p-0 ps-1" onClick={(e) => dispatch(removeProduct(order.product))}>
-                                            <FontAwesomeIcon icon={faMinus} className="btn btn-danger rounded-circle p-1 d-inline-block" style={{marginTop: "2%"}} />
-                                        </Col>
-
-                                        
-                                    </>
-                                )
-                            })
-                            :
-                            ""
-                            }
-                            <Col lg={11} className="pt-3 text-center">
-                                <h2>Total: ${total.toFixed(2)} </h2>
-                            </Col>      
-                            <Col sm={10} md={6} lg={4} xxl={3}>
-                                <Link to='/checkout' className={`btn btn-danger rounded-pill text-white w-100 mt-3 ${(orders[0].length ===0) ? "disabled" : ""}`}>
-                                    proceed to checkout
-                                </Link>
-                            </Col> 
-                        </Row>
-                    </Card>
-                </Col>
+                    <Row className='justify-content-center w-100 mx-auto'>
+                        {(orders.length !== 0) ?
+                        orders[0].map((order) => {
+                            return (
+                                <>
+                                    <div className="column column-data col-4 col-lg-3 offset-lg-1">
+                                        {order.name}
+                                    </div>
+                                    <div className="column column-data col-2 px-0 text-center">
+                                        ${order.price}
+                                    </div>
+                                    <div className="column column-data col-2 col-lg-1 px-0 text-center">
+                                        <input type="number" min="1" max="50" className="border-0 col-8 px-0 ms-1 ms-md-2 text-center" style={{backgroundColor: 'transparent'}} value={order.quantity} onChange={(e) => setQuantityChange(e, order.product, order.quantity)}></input>
+                                    </div>
+                                    <div className="column column-data col-3 col-lg-2 px-0 text-center">
+                                        ${(order.price * order.quantity).toFixed(2)}
+                                    </div>
+                                    <div className="justify-content-center p-0 ps-1 col-1 col-lg-2" onClick={(e) => dispatch(removeProduct(order.product))}>
+                                        <FontAwesomeIcon icon={faMinus} className="btn btn-danger rounded-circle p-1 d-inline-block" style={{marginTop: "2%"}} />
+                                    </div>
+                                </>
+                            )
+                        })
+                        :
+                        ""
+                        }
+                        <div lg={11} className="pt-3 text-center">
+                            <h2>Total: ${total.toFixed(2)} </h2>
+                        </div>      
+                        <div sm={10} md={6} lg={4} xxl={3}>
+                            <Link to='/checkout' className={`btn btn-danger rounded-pill text-white w-100 mt-3 ${(orders[0].length ===0) ? "disabled" : ""}`}>
+                                proceed to checkout
+                            </Link>
+                        </div> 
+                    </Row>
+                </Card>
             </Row>
         </Container>
     </div>

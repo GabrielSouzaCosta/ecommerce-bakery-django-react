@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import NavBar from '../NavBar';
+import Footer from '../Footer';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/esm/Container';
@@ -84,6 +85,7 @@ export default function Products(props) {
             ""
         }
        </Container>
+       <Footer style={"dark text-white"} githubIcon={"github_white"}/>
     </div>
   </>
   )

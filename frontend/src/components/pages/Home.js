@@ -74,7 +74,7 @@ export default function Home() {
             </section>
           </Container>
         </div>
-      <Footer />
+      <Footer style={"light"} githubIcon={"github_black"}/>
     </div>
     
   )

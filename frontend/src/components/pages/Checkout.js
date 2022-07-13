@@ -71,10 +71,10 @@ export default function Checkout(props) {
     })
 
   return (
-    <div className='bg-secondary min-vh-100'>
-      <Container className='vh-100'>
-        <div className='d-flex align-items-center justify-content-center h-100' >
-          <Card className='text-center' style={{width: '700px'}} >
+    <div className='bg-secondary' >
+      <Container className='min-vh-100'>
+        <div className='d-flex align-items-center justify-content-center h-100 pt-5' >
+          <Card className='text-center my-5' style={{width: '700px'}} >
             <Card.Body>
               <Card.Title as='h1'>Checkout</Card.Title>
               <form onSubmit={handleSubmit} className="stripe-form" >
