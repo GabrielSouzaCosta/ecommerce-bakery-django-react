@@ -20,10 +20,11 @@ $font-family-code: 'Finlandica', sans-serif;
 
 $btn-border-radius: "0";
 
-.navbar-transparent {
-    background-color: #0000004b;
+.disabled {
+    pointer-events: none;
 }
 
+// homepage style
 .homepage {
     font-family: 'Montserrat', sans-serif;
     background: url("../public/images/background5.jpg") left no-repeat, url("../public/images/background7.jpg") center no-repeat, url("../public/images/background4.jpg") right no-repeat;
@@ -66,11 +67,9 @@ $btn-border-radius: "0";
     background: url("../public/images/icons/icon2.svg") 50% 90% no-repeat;
     background-size: 70% 50%;
 }
+// end of homepage style
 
-.disabled {
-    pointer-events: none;
-}
-
+// Login/Register pages style
 .login-page {
     background-image: url('../public/images/background1.jpg');
     background-repeat: no-repeat;
@@ -90,7 +89,9 @@ $btn-border-radius: "0";
 .blur-bg-register {
     backdrop-filter: blur(2px);
 }
+// END Login/Register pages style
 
+// Products page style
 .wrapper {
     max-width: 450px;
     position: relative;
@@ -140,6 +141,11 @@ $btn-border-radius: "0";
      border: none;
      border-radius: 18px
  }
+//  END of products page style
+.bg-checkout {
+    background: url('../public/images/background3.jpg') center no-repeat;
+    background-image: contain;
+}
 
  .column {
      background-color: #ffffff56;
@@ -156,6 +162,7 @@ $btn-border-radius: "0";
  .column-data {
     background-color: #ffffffa2;
  }
+ // END of cart/checkout style
 
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";

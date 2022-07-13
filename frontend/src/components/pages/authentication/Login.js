@@ -14,11 +14,10 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
 
-  const csrftoken = getCookie('csrftoken');
-
-
-  function handleLogin() {
-    return axios.post('accounts/login/', {"login": email, "password": password}, {headers: {
+  
+  async function handleLogin() {
+    const csrftoken = getCookie('csrftoken');
+    return await axios.post('accounts/login/', {"login": email, "password": password}, {headers: {
       "x-csrftoken": csrftoken
     }})
   }    

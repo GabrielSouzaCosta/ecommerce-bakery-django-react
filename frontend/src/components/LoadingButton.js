@@ -13,8 +13,9 @@ export default function LoadingButton(props) {
           if (props.register) {
             navigate('/register-success');
           } else {
-            sessionStorage.setItem('token', res.data.auth_token);
-            navigate('/');
+            console.log(res.data)
+            navigate(-1);
+            sessionStorage.setItem('token', res.data.token);
           }
         })
         .catch((err) => {

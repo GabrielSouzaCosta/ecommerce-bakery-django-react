@@ -41,9 +41,9 @@ export default function MyProducts() {
         <NavBar />
         <Container fluid>
             <Row className="align-items-center justify-content-center text-uppercase" style={{height: "85vh"}}>
-                <Card className="bg-light py-3 w-100" style={{minHeight: "400px"}}>
+                <Card className="bg-light py-3" style={{minHeight: "400px", maxWidth: "90%"}}>
                     <Row className='justify-content-center w-100 mx-auto align-items-end'>
-                        <div className="column col-4 col-lg-3 px-0 text-center">
+                        <div className="column col-4 col-lg-3 offset-lg-1 px-0 text-center">
                             <h2 className='fs-4'>Product</h2>
                         </div>
                         <div className="column col-2 text-center px-0">
@@ -82,7 +82,7 @@ export default function MyProducts() {
                                     <div className="column column-data col-3 col-lg-2 px-0 text-center">
                                         ${(order.price * order.quantity).toFixed(2)}
                                     </div>
-                                    <div className="justify-content-center p-0 ps-1 col-1 col-lg-2" onClick={(e) => dispatch(removeProduct(order.product))}>
+                                    <div className="justify-content-center p-0 ps-1 col-1 col-lg-1" onClick={(e) => dispatch(removeProduct(order.product))}>
                                         <FontAwesomeIcon icon={faMinus} className="btn btn-danger rounded-circle p-1 d-inline-block" style={{marginTop: "2%"}} />
                                     </div>
                                 </>
@@ -94,8 +94,8 @@ export default function MyProducts() {
                         <div lg={11} className="pt-3 text-center">
                             <h2>Total: ${total.toFixed(2)} </h2>
                         </div>      
-                        <div sm={10} md={6} lg={4} xxl={3}>
-                            <Link to='/checkout' className={`btn btn-danger rounded-pill text-white w-100 mt-3 ${(orders[0].length ===0) ? "disabled" : ""}`}>
+                        <div className='col-10 col-md-6 col-lg-4 mx-auto text-center'>
+                            <Link to='/checkout' className={`btn btn-danger rounded-pill text-white mt-3 ${(orders[0].length ===0) ? "disabled" : ""}`}>
                                 proceed to checkout
                             </Link>
                         </div> 

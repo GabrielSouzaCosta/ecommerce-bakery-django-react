@@ -147,6 +147,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
 }
 
 SITE_NAME = "Heaven Bakery"
@@ -159,6 +164,7 @@ REST_REGISTRATION = {
     'RESET_PASSWORD_VERIFICATION_URL': 'http://localhost:3000/reset-password/',
     'REGISTER_EMAIL_VERIFICATION_URL': 'http://localhost:3000/verify-email/',
     'VERIFICATION_FROM_EMAIL': 'gabrielsscosta2010@hotmail.com',
+    'LOGIN_RETRIEVE_TOKEN': True,
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

@@ -62,7 +62,7 @@ export default function Home() {
                   </Card.Title>
                   <Card.Text className='fs-4'>
                     <p>
-                      We are a Traditional Bakery founded on 1956. we offer the most heavenly breads, sweets and coffees from around the world in our establishment.
+                      We are a Traditional Bakery founded on 1956. we offer the most heavenly breads, sweets and coffees from all around the world in our establishment.
                       So come and taste it all.
                     </p>
                     <strong className='fs-3'>Adress: 818 Heaven Street<br/>
