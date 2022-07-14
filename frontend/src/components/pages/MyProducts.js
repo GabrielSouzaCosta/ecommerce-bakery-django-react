@@ -51,8 +51,7 @@ export default function MyProducts() {
                             <h2 className='d-block d-md-none fs-4'>$</h2>
                         </div>
                         <div className="column col-2 col-lg-1 text-center px-0">
-                            <h2 className='d-none d-md-block fs-4'>Quantity</h2>
-                            <h2 className='d-block d-md-none fs-4'>Qt</h2>
+                            <h2 className='fs-4'>Qt</h2>
                         </div>
                         <div className="column col-3 col-lg-2 text-center px-0">
                             <h2 className='d-none d-md-block fs-4'>Total</h2>

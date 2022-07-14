@@ -31,6 +31,7 @@ DEBUG = os.environ.get('DEBUG', True)
 
 ALLOWED_HOSTS = ['*']
 
+# CSRF development and production Trusted origins.
 CSRF_TRUSTED_ORIGINS = ['http://localhost:8000/api/v1/', 'http://localhost:3000/', os.environ.get('FRONTEND_URL', 'http://localhost:3000')]
 
 CORS_ORIGIN_WHITELIST = [
@@ -63,8 +64,17 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# AWS S3 Configuration for uploading files into bucket, all keys were passed into the heroku environment
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID=os.environ.get("AWS_ACCESS_KEY_ID")    
+AWS_SECRET_ACCESS_KEY=os.environ.get("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME=os.environ.get("AWS_STORAGE_BUCKET_NAME")
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -91,19 +101,20 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'bakery_ecommerce'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PWD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': 5432,
-    }
+    # --> Database configuration on development
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': os.environ.get('DB_NAME', 'bakery_ecommerce'),
+    #     'USER': os.environ.get('DB_USER'),
+    #     'PASSWORD': os.environ.get('DB_PWD'),
+    #     'HOST': os.environ.get('DB_HOST'),
+    #     'PORT': 5432,
+    # }
 }
 
+# Database configuration on production (heroku)
 import dj_database_url
-
-# DATABASES['default'] = dj_database_url.config()
+DATABASES['default'] = dj_database_url.config()
 
 
 # Password validation
@@ -162,6 +173,7 @@ REST_FRAMEWORK = {
 
 SITE_NAME = "Heaven Bakery"
 
+# Rest Framework Registration configuration
 REST_REGISTRATION = {
     'REGISTER_VERIFICATION_ENABLED': True,
     'REGISTER_EMAIL_VERIFICATION_ENABLED': True,
@@ -178,9 +190,11 @@ EMAIL_HOST = "smtp.outlook.office365.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
+# You must provide your email and password in order to send email
 EMAIL_HOST_USER = "gabrielsscosta2010@hotmail.com"
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
 DEFAULT_FROM_EMAIL = 'gabrielsscosta2010@hotmail.com'
 
+# Custom user model 
 AUTH_USER_MODEL = 'api.User'

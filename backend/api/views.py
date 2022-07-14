@@ -37,7 +37,7 @@ class CoffeesListView(APIView):
         serializer = ProductSerializer(coffees, many=True)
         return Response(serializer.data)
 
-
+# Save the customer and create a new payment intent
 @api_view(['POST'])
 @authentication_classes([authentication.TokenAuthentication])
 @permission_classes([permissions.IsAuthenticated])
@@ -67,6 +67,7 @@ def checkout(request):
             payment_method=payment_method_id,  
             currency='BRL',
             amount=int(paid_amount * 100),
+            # by confirm=True, the payment is directly charged
             confirm=True)  
 
         serializer.save(user=request.user, paid_amount=paid_amount)
@@ -86,6 +87,7 @@ class OrdersList(APIView):
         return Response(serializer.data)
 
 
+# view only for testing stripe payment
 @api_view(['POST'])
 def test_payment(request):
     stripe.api_key = settings.STRIPE_SECRET_KEY
